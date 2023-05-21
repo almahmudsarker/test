@@ -1,26 +1,21 @@
-import React from 'react';
-import { useContext } from 'react';
-import { AuthContext } from '../providers/AuthProvider';
-import { Navigate } from 'react-router-dom';
-import Spinner from "react-bootstrap/Spinner";
 
-const PrivateRoute = ({children}) => {
-    const {user, loading} = useContext(AuthContext);
-    if(loading){
-        return (
-          <div  className='text-align-center'>
-            <Spinner
-              animation="border"
-              variant="secondary"
-              style={{ width: "50px", height: "50px", marginLeft: "300px",marginTop:'20px'}}
-            /> <span className='fs-1 text-secondary'>Loading....</span>
-          </div>
-        );
-    }
-    if(user){
-        return children;
-    }
-    return <Navigate to="/login" replace={true}></Navigate>
+import { Navigate, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+
+const PrivateRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  const location = useLocation();
+  console.log("user in private route", user);
+
+  if (loading) {
+    return <progress className="progress w-56"></progress>;
+  }
+  if (user) {
+    return children;
+  }
+
+  return <Navigate state={{ from: location }} to="/login" replace></Navigate>;
 };
 
 export default PrivateRoute;

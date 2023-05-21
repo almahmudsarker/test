@@ -1,14 +1,15 @@
-import React from 'react';
-import Footer from '../components/Footer/Footer';
-import Header from '../components/Header/Header';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import Footer from "../pages/Shared/Footer/Footer";
+import NavBar from "../pages/Shared/NavBar/NavBar";
+import useTitle from "../hooks/useTitle";
 
 const Main = () => {
+    useTitle("Home");
     return (
         <div>
-            <Header></Header>
-            <Outlet></Outlet>
-            <Footer></Footer>
+            <NavBar />
+            <Outlet />
+            <Footer />
         </div>
     );
 };
